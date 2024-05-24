@@ -44,6 +44,8 @@ var globalHandlers = []mux.MiddlewareFunc{
 	filterReservedMetadata,
 	// Enforce rules specific for TLS requests
 	setSSETLSHandler,
+	// add by cfs
+	setCfsAuthHandler,
 	// Auth handler verifies incoming authorization headers and
 	// routes them accordingly. Client receives a HTTP error for
 	// invalid/unsupported signatures.

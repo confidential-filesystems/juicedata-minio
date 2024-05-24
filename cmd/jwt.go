@@ -104,16 +104,16 @@ func webTokenCallback(claims *xjwt.MapClaims) ([]byte, error) {
 	if claims.AccessKey == globalActiveCred.AccessKey {
 		return []byte(globalActiveCred.SecretKey), nil
 	}
-	ok, err := globalIAMSys.IsTempUser(claims.AccessKey)
-	if err != nil {
-		if err == errNoSuchUser {
-			return nil, errInvalidAccessKeyID
-		}
-		return nil, err
-	}
-	if ok {
-		return []byte(globalActiveCred.SecretKey), nil
-	}
+	//ok, err := globalIAMSys.IsTempUser(claims.AccessKey)
+	//if err != nil {
+	//	if err == errNoSuchUser {
+	//		return nil, errInvalidAccessKeyID
+	//	}
+	//	return nil, err
+	//}
+	//if ok {
+	//	return []byte(globalActiveCred.SecretKey), nil
+	//}
 	cred, ok := globalIAMSys.GetUser(claims.AccessKey)
 	if !ok {
 		return nil, errInvalidAccessKeyID
@@ -154,7 +154,8 @@ func webRequestAuthenticate(req *http.Request) (*xjwt.MapClaims, bool, error) {
 	if err := xjwt.ParseWithClaims(token, claims, webTokenCallback); err != nil {
 		return claims, false, errAuthentication
 	}
-	owner := claims.AccessKey == globalActiveCred.AccessKey
+	//owner := claims.AccessKey == globalActiveCred.AccessKey
+	owner := true // change by cfs
 	return claims, owner, nil
 }
 

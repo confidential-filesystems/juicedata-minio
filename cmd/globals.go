@@ -42,6 +42,7 @@ import (
 	"github.com/minio/minio/pkg/certs"
 	"github.com/minio/minio/pkg/event"
 	"github.com/minio/minio/pkg/pubsub"
+	goCache "github.com/patrickmn/go-cache"
 )
 
 // minio configuration related constants.
@@ -204,6 +205,9 @@ var (
 	globalBootTime = UTCNow()
 
 	globalActiveCred auth.Credentials
+
+	// add by cfs
+	globalCfsCred = goCache.New(1*time.Hour, 10*time.Minute)
 
 	// Hold the old server credentials passed by the environment
 	globalOldCred auth.Credentials

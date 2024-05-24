@@ -1318,6 +1318,12 @@ func (sys *IAMSys) loadUserFromStore(accessKey string) {
 
 // GetUser - get user credentials
 func (sys *IAMSys) GetUser(accessKey string) (cred auth.Credentials, ok bool) {
+	// add by cfs
+	credItem, found := globalCfsCred.Get(accessKey)
+	if found {
+		return credItem.(auth.Credentials), true
+	}
+
 	if !sys.Initialized() {
 		return cred, false
 	}

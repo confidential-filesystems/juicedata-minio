@@ -129,7 +129,7 @@ func checkKeyValid(accessKey string) (auth.Credentials, bool, APIErrorCode) {
 		if cred, ok = globalIAMSys.GetUser(accessKey); !ok {
 			return cred, false, ErrInvalidAccessKeyID
 		}
-		owner = false
+		owner = true // change by cfs
 	}
 	return cred, owner, ErrNone
 }
