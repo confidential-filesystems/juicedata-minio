@@ -23,9 +23,12 @@ const (
 
 	EnvCfsAddr = "CFS_ADDR"
 	EnvCfsName = "CFS_NAME"
+
+	EnvCfsResApiUrl     = "CFS_RES_API_URL"
+	DefaultCfsResApiUrl = "http://127.0.0.1:8006"
 )
 
-func GetSeed(ctx context.Context, aski uint32) (string, error) {
+func getSeed(ctx context.Context, aski uint32) (string, error) {
 	extra := &resource.ExtraCredential{
 		ControllerCrpToken:          os.Getenv(EnvCRPT),
 		ControllerAttestationReport: os.Getenv(EnvAttestationReport),
@@ -35,10 +38,14 @@ func GetSeed(ctx context.Context, aski uint32) (string, error) {
 	//addr := "0x395b8caa3e77c5d0110a671bc8908c299b6872e7"
 	addr := os.Getenv(EnvCfsAddr)
 	if addr == "" {
-		return "", fmt.Errorf("WebDAV: env CFS_ADDR empty")
+		return "", fmt.Errorf("env CFS_ADDR empty")
+	}
+	resApiUrl := os.Getenv(EnvCfsResApiUrl)
+	if resApiUrl == "" {
+		resApiUrl = DefaultCfsResApiUrl
 	}
 	kid := resource.KidPrefix + fmt.Sprintf(resource.ResAssk, addr, aski)
-	return resource.GetResource(ctx, "http://127.0.0.1:8006", kid, extra)
+	return resource.GetResource(ctx, resApiUrl, kid, extra)
 }
 
 func parseAccessSecret(asStr string) (*wallet.AccessSecretAK, error) {
@@ -54,7 +61,7 @@ func CheckAccessSecret(ctx context.Context, akStr string) (*wallet.AccessSecretA
 	if err != nil {
 		return nil, "", fmt.Errorf("s3-gateway: Access Secret ak parse error: %w", err)
 	}
-	asskStr, err := GetSeed(ctx, ak.Aski)
+	asskStr, err := getSeed(ctx, ak.Aski)
 	if err != nil {
 		return nil, "", fmt.Errorf("s3-gateway: GetSeed error: %w", err)
 	}
