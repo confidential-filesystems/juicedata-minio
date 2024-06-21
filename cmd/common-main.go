@@ -305,6 +305,8 @@ func handleCommonEnvVars() {
 		}
 		globalActiveCred = cred
 		globalConfigEncrypted = true
+		os.Unsetenv(config.EnvAccessKey)
+		os.Unsetenv(config.EnvSecretKey)
 	}
 
 	if env.IsSet(config.EnvRootUser) || env.IsSet(config.EnvRootPassword) {
@@ -315,6 +317,8 @@ func handleCommonEnvVars() {
 		}
 		globalActiveCred = cred
 		globalConfigEncrypted = true
+		os.Unsetenv(config.EnvRootUser)
+		os.Unsetenv(config.EnvRootPassword)
 	}
 
 	if env.IsSet(config.EnvAccessKeyOld) && env.IsSet(config.EnvSecretKeyOld) {
