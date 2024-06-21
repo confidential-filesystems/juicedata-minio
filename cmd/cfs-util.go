@@ -14,10 +14,10 @@ import (
 )
 
 const (
-	EnvCRPT              = "controllerCrpToken"
-	EnvAttestationReport = "controllerAttestationReport"
-	EnvCertChain         = "controllerCertChain"
-	MetadataAttester     = "metadata"
+	ContainerEnvCRT               = "confidentialfilesystems_controllerCrToken"
+	ContainerEnvAttestationReport = "confidentialfilesystems_controllerAttestationReport"
+	ContainerEnvCertChain         = "confidentialfilesystems_controllerCertChain"
+	MetadataAttester              = "metadata"
 
 	AudienceTypeS3 = "s3"
 
@@ -30,9 +30,9 @@ const (
 
 func getSeed(ctx context.Context, aski uint32) (string, error) {
 	extra := &resource.ExtraCredential{
-		ControllerCrpToken:          os.Getenv(EnvCRPT),
-		ControllerAttestationReport: os.Getenv(EnvAttestationReport),
-		ControllerCertChain:         os.Getenv(EnvCertChain),
+		ControllerCrpToken:          os.Getenv(ContainerEnvCRT),
+		ControllerAttestationReport: os.Getenv(ContainerEnvAttestationReport),
+		ControllerCertChain:         os.Getenv(ContainerEnvCertChain),
 		Attester:                    MetadataAttester,
 	}
 	//addr := "0x395b8caa3e77c5d0110a671bc8908c299b6872e7"
