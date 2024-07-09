@@ -34,6 +34,7 @@ func getSeed(ctx context.Context, aski uint32) (string, error) {
 		ControllerAttestationReport: os.Getenv(ContainerEnvAttestationReport),
 		ControllerCertChain:         os.Getenv(ContainerEnvCertChain),
 		Attester:                    MetadataAttester,
+		ExtraRequest:                "",
 	}
 	//addr := "0x395b8caa3e77c5d0110a671bc8908c299b6872e7"
 	addr := os.Getenv(EnvCfsAddr)

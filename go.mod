@@ -9,7 +9,7 @@ require (
 	github.com/beevik/ntp v1.3.1
 	github.com/cespare/xxhash/v2 v2.2.0
 	github.com/cheggaaa/pb v1.0.29
-	github.com/confidential-filesystems/filesystem-toolchain v0.0.0-20240620104931-0d55f462bf17
+	github.com/confidential-filesystems/filesystem-toolchain v0.0.0-20240708065646-e750cfb8495b
 	github.com/coredns/coredns v1.4.0
 	github.com/dchest/siphash v1.2.1
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
